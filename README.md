@@ -522,3 +522,62 @@ If you use this codebase, or otherwise found our work valuable, please cite:
   year={2024}
 }
 ```
+
+The output you've shown is a **Git diff** between two versions of a file or directory. The diff indicates a change in the submodule reference of a Git submodule.
+
+### Explanation of the Diff:
+
+```diff
+--- a/csrc/composable_kernel
++++ b/csrc/composable_kernel
+@@ -1 +1 @@
+-Subproject commit 888317e698e9803c62bd38568abc9e05d7709f33
++Subproject commit 888317e698e9803c62bd38568abc9e05d7709f33-dirty
+```
+
+1. **Before**:
+   - `Subproject commit 888317e698e9803c62bd38568abc9e05d7709f33`
+   - This line indicates the commit hash (`888317e698e9803c62bd38568abc9e05d7709f33`) of the submodule that was recorded in the repository. This is the commit that was checked out for the submodule.
+
+2. **After**:
+   - `Subproject commit 888317e698e9803c62bd38568abc9e05d7709f33-dirty`
+   - The line now shows the same commit hash but with a `-dirty` suffix. This means that there are **local modifications** (dirty changes) in the submodule that are not committed. Essentially, this indicates that the submodule's working directory has uncommitted changes, which could include modified files or new files not staged for commit.
+
+### What does this mean for the file?
+- This file is most likely a **submodule reference** in a parent Git repository. The `csrc/composable_kernel` file stores the current commit reference for the `composable_kernel` submodule.
+- The change indicates that the submodule has local modifications (uncommitted changes) and the state of the submodule isn't exactly at the commit that was originally recorded.
+
+### What should you do with this?
+- If you want to resolve the `-dirty` status, you should **commit** or **stash** the changes in the submodule, or **reset** it to the commit that was originally recorded in the parent repository.
+  
+You can perform the following actions:
+
+1. **Check the status of the submodule**:
+   ```bash
+   git submodule status
+   ```
+   This will show whether the submodule has any local changes.
+
+2. **Commit changes in the submodule**:
+   Navigate to the submodule directory and commit any changes:
+   ```bash
+   cd csrc/composable_kernel
+   git add .
+   git commit -m "Your commit message"
+   git push
+   ```
+
+3. **Alternatively, discard local changes**:
+   If you don't need the local modifications in the submodule, you can reset it to the recorded commit:
+   ```bash
+   git submodule update --remote
+   ```
+
+4. **Stage the submodule update in the parent repo**:
+   After committing or resetting the submodule, you might need to stage the change in the parent repository:
+   ```bash
+   git add csrc/composable_kernel
+   git commit -m "Update submodule reference"
+   ```
+
+This should remove the `-dirty` suffix and synchronize the submodule with the correct state.

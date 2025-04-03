@@ -1,5 +1,5 @@
-*.ncu-rep
-.DS_store
+# System files
+.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -9,8 +9,20 @@ __pycache__/
 *.so
 *environment*
 *.egg-info/
+
+# Image and media files
 *.jpg
-*.uFlash
+*.mp4
+*.avi
+*.mkv
+*.mov
+*.webm
+*.m4v
+*.flv
+*.wmv
+*.m4a
+*.svg
+
 # Distribution / packaging
 bin/
 build/
@@ -30,5 +42,34 @@ var/
 # IDE-related
 .idea/
 
-# Dev
-venv
+# Python virtual environments
+venv/
+
+# LaTeX-related files
+*.tex
+*.aux
+*.bbl
+*.log
+*.out
+*.dvi
+
+# Data files
+*.json
+*.csv
+*.tsv
+*.xml
+*.yaml
+*.yml
+*.pickle
+*.pkl
+
+# Text files
+*.txt
+
+# Miscellaneous
+*.uFlash
+
+# Other files
+*.ncu-rep
+*.svg
+*.tex
